@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "8a329d44-d837-4d7a-b9c1-7cb2018899aa",
+		"name": "ms-paciente API",
+		"description": "Coleccion de pruebas REST para ms-paciente (Afiliacion y Seguro)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth - Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth - Registrar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/auth/register?username=operador1&password=123456&rol=ROLE_USER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "operador1"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						},
+						{
+							"key": "rol",
+							"value": "ROLE_USER"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Listar Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Obtener por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Buscar por Documento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/documento/72345678",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"documento",
+						"72345678"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Validar Seguro (Apto)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/1/seguro/validar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"1",
+						"seguro",
+						"validar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Validar Seguro (No Apto o Vencido)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/3/seguro/validar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"3",
+						"seguro",
+						"validar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Registrar Paciente con Seguro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numeroDocumento\": \"87654321\",\n    \"nombres\": \"Ana Lucia\",\n    \"apellidos\": \"Vargas Morales\",\n    \"fechaNacimiento\": \"1995-03-10\",\n    \"genero\": \"FEMENINO\",\n    \"telefono\": \"998877665\",\n    \"direccion\": \"Av. Javier Prado 3200, Lima\",\n    \"estado\": \"ACTIVO\",\n    \"seguroTrabajo\": {\n        \"numeroAfiliacion\": \"ESS-87654321-01\",\n        \"empresa\": \"Servicios Digitales SAC\",\n        \"tipoSeguro\": \"ESSALUD\",\n        \"fechaVigenciaInicio\": \"2026-01-01\",\n        \"fechaVigenciaFin\": \"2026-12-31\",\n        \"estado\": \"APTO\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Actualizar Paciente",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numeroDocumento\": \"72345678\",\n    \"nombres\": \"Carlos Alberto\",\n    \"apellidos\": \"Mendoza Perez\",\n    \"fechaNacimiento\": \"1990-05-15\",\n    \"genero\": \"MASCULINO\",\n    \"telefono\": \"999888777\",\n    \"direccion\": \"Av. Arequipa 1234, Miraflores\",\n    \"estado\": \"ACTIVO\",\n    \"seguroTrabajo\": {\n        \"numeroAfiliacion\": \"ESS-72345678-01\",\n        \"empresa\": \"Tecnologias del Peru SAC\",\n        \"tipoSeguro\": \"ESSALUD\",\n        \"fechaVigenciaInicio\": \"2026-01-01\",\n        \"fechaVigenciaFin\": \"2026-12-31\",\n        \"estado\": \"APTO\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pacientes - Eliminar Paciente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/pacientes/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pacientes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

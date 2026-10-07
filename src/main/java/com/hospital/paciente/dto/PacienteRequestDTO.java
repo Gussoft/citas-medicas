@@ -29,11 +29,8 @@ public class PacienteRequestDTO {
     private LocalDate fechaNacimiento;
 
     private String genero;
-
     private String telefono;
-
     private String direccion;
-
     private String estado;
 
     @Valid

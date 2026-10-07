@@ -16,9 +16,7 @@ import java.time.LocalDate;
 public class SeguroTrabajoDTO {
 
     private Long id;
-
     private String numeroAfiliacion;
-
     private String empresa;
 
     @NotBlank(message = "El tipo de seguro es obligatorio")
