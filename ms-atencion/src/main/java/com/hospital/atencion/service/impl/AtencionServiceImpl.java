@@ -1,5 +1,6 @@
 package com.hospital.atencion.service.impl;
 
+import com.hospital.atencion.client.CitaClient;
 import com.hospital.atencion.dto.ActualizarAtencionRequestDTO;
 import com.hospital.atencion.dto.AtencionResponseDTO;
 import com.hospital.atencion.dto.DerivacionRequestDTO;
@@ -20,6 +21,7 @@ import com.hospital.atencion.repository.DerivacionRepository;
 import com.hospital.atencion.repository.RecetaRepository;
 import com.hospital.atencion.service.AtencionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +33,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AtencionServiceImpl implements AtencionService {
 
     private final AtencionRepository atencionRepository;
     private final RecetaRepository recetaRepository;
     private final DerivacionRepository derivacionRepository;
+    private final CitaClient citaClient;
 
     @Override
     @Transactional
@@ -44,6 +48,15 @@ public class AtencionServiceImpl implements AtencionService {
             throw new BadRequestException("Ya existe un registro de atencion para la cita ID: " + request.getCitaId());
         }
 
+        // 1. Invocar ms-citas mediante OpenFeign para marcar la cita en estado EN_ATENCION
+        try {
+            log.info("Comunicando con ms-citas para marcar la cita ID: {} en estado EN_ATENCION", request.getCitaId());
+            citaClient.cambiarEstadoCita(request.getCitaId(), "EN_ATENCION");
+        } catch (Exception ex) {
+            log.warn("Excepcion al comunicar con ms-citas. El fallback o contingencia gestionara el flujo: {}", ex.getMessage());
+        }
+
+        // 2. Registrar la atencion en estado EN_PROCESO
         Atencion atencion = Atencion.builder()
                 .citaId(request.getCitaId())
                 .pacienteId(request.getPacienteId())
