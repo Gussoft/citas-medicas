@@ -44,7 +44,7 @@ public class AtencionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AtencionResponseDTO> obtenerPorId(@PathVariable Long id) {
-        AtencionResponseDTO response = atencionService.obtenerPorId(id);
+        AtencionResponseDTO response = atencionService.obtenerAtencionPorId(id);
         return ResponseEntity.ok(response);
     }
 

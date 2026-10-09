@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "c1f72a45-6a12-4f3b-8e2b-7c4892c5a111",
+		"name": "ms-atencion API",
+		"description": "Coleccion de pruebas REST para ms-atencion (Atencion Medica, Recetas y Derivaciones)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Iniciar Atencion (desde Cita)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"citaId\": 1,\n    \"pacienteId\": 1,\n    \"doctorId\": 1,\n    \"diagnostico\": \"Faringitis aguda\",\n    \"observaciones\": \"Paciente presenta dolor de garganta y fiebre de 38.5C por 2 dias\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Listar Todas las Atenciones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Obtener Atencion por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Actualizar Diagnostico / Finalizar Atencion",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diagnostico\": \"Faringoamigdalitis bacteriana confirmada\",\n    \"observaciones\": \"Se prescribe tratamiento con antibioticos por 7 dias. Reposo relativo.\",\n    \"estado\": \"FINALIZADA\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Emitir Receta con Medicamentos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"indicacionesGenerales\": \"Tomar los medicamentos despues de los alimentos. Ingerir abundante liquido.\",\n    \"detalles\": [\n        {\n            \"medicamento\": \"Amoxicilina 500mg\",\n            \"dosis\": \"1 tableta (500mg)\",\n            \"frecuencia\": \"Cada 8 horas\",\n            \"duracion\": \"7 dias\",\n            \"cantidad\": 21\n        },\n        {\n            \"medicamento\": \"Paracetamol 500mg\",\n            \"dosis\": \"1 tableta (500mg)\",\n            \"frecuencia\": \"Cada 8 horas si hay fiebre o dolor\",\n            \"duracion\": \"3 dias\",\n            \"cantidad\": 10\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1/recetas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1",
+						"recetas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Ver Recetas de una Atencion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1/recetas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1",
+						"recetas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Crear Derivacion a Otra Area",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"areaDestino\": \"Laboratorio Clinico\",\n    \"motivo\": \"Exudado faringeo y hemograma completo de control\",\n    \"prioridad\": \"NORMAL\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1/derivaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1",
+						"derivaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Ver Derivaciones de una Atencion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/1/derivaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"1",
+						"derivaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Consultar Historial Medico de un Paciente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/atenciones/paciente/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"atenciones",
+						"paciente",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
