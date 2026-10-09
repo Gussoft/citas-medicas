@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ms-atencion
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_citas_atencion?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Configuracion de Resilience4j para Circuit Breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      citaClient:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+
+# URL del microservicio de citas
+services:
+  citas:
+    url: http://localhost:8082
